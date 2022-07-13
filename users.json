@@ -1,0 +1,26 @@
+[
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "martin@mongolon.com",
+        "first_name": "MArtin",
+        "last_name": "Mendoza",
+        "birth_date": "1980-10-13",
+        "password": "458798546585"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "sdf@mondddgolon.com",
+        "first_name": "MARIANITO",
+        "last_name": "Mendoza Alvarez",
+        "birth_date": "1988-10-13",
+        "password": "458546585"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "sdf@molon.com",
+        "first_name": "Alejandro",
+        "last_name": "Mendoza Alvarez",
+        "birth_date": "1988-10-28",
+        "password": "458sdf6585"
+    }
+]
