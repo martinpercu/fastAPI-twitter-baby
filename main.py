@@ -1,4 +1,5 @@
 # Python
+import json
 from typing import Optional
 from uuid import UUID
 from datetime import date, datetime
@@ -12,6 +13,7 @@ from pydantic import Field
 # FastAPI
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import Body
 
 app = FastAPI()
 
@@ -40,7 +42,14 @@ class User(UserBase):
         max_length=48
     )
     birth_date: Optional[date] = Field(default=None)
-    
+
+class UserRegister(User):
+    password: str = Field(
+        ...,
+        min_length=8,
+        max_length=80
+    )
+
 class Tweet(BaseModel):
     tweet_id: UUID = Field(...)
     content: str = Field(
@@ -64,8 +73,34 @@ class Tweet(BaseModel):
     summary="Register the user",
     tags=["Users"]
 )
-def signup():
-    pass
+def signup(user: UserRegister = Body(...)):
+    """
+    Signup
+
+    This path operation register an user in the app
+
+    Parameters:
+    - Request body parameter
+        - user: UserRegister
+    
+    Returns a json with the basic user information:
+    - user_id: UUID
+    - email: Emailstr
+    - first_name: str
+    - last_name: str
+    - birth_date: date
+    """
+    with open("users.json", "r+", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        user_dict = user.dict()
+        user_dict["user_id"] = str(user_dict["user_id"])
+        user_dict["birth_date"] = str(user_dict["birth_date"])
+        results.append(user_dict)
+        f.seek(0)
+        f.write(json.dumps(results))
+        return user
+
+    
 
 ### Login a user
 @app.post(
@@ -87,7 +122,24 @@ def login():
     tags=["Users"]
 )
 def show_all_users():
-    pass
+    """
+    Show all users
+
+    This path operation show all users in the app
+
+    Parameters:
+    -
+
+    Returns a json list with all users in the app, with the followin keys:
+    - user_id: UUID
+    - email: Emailstr
+    - first_name: str
+    - last_name: str
+    - birth_date: date
+    """
+    with open("users.json", "r", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        return results
 
 ### Show the user
 @app.get(
