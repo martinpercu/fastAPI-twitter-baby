@@ -1,3 +1,3 @@
 # twitter-baby
 
-Simple backend for a twitter usin FastAPI
+Simple backend with a twitter structure using FastAPI
